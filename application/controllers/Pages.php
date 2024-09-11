@@ -13,15 +13,6 @@ class Pages extends CI_Controller
 		$this->load->view('partials/footer');
 	}
 
-	public function catalog()
-	{
-		$data['title'] = 'Catálogo';
-		$css_file = 'catalog.css';
-		$this->load->view('partials/header', $data);
-		$this->load->view('pages/catalog/index', $data);
-		$this->load->view('partials/footer');
-	}
-
 	public function about()
 	{
 		$data['title'] = 'Sobre Nosotros';

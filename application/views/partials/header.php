@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/svg+xml" href=<?php echo base_url('/assets/favicon/favicon.svg'); ?>>
 	<link rel="icon" type="image/png" href=<?php echo base_url('/assets/favicon/favicon.png'); ?>>
+	<script src="https://cdn.tailwindcss.com"></script>
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/global.css'); ?>">
 	<?php if (isset($css_file)): ?>
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/pages' . $css_file); ?>">
@@ -24,7 +25,7 @@
 					<a href="<?php echo base_url(); ?>">Inicio</a>
 				</li>
 				<li>
-					<a href="<?php echo base_url('catalog'); ?>">Catálogo</a>
+					<a href="<?php echo base_url('products'); ?>">Catálogo</a>
 				</li>
 				<li>
 					<a href="<?php echo base_url('about'); ?>">Sobre Nosotros</a>
