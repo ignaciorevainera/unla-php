@@ -1,6 +1,6 @@
     </main>
     <footer>
-    	<p>&copy; 2024 Mi Sitio Web. Todos los derechos reservados.</p>
+    	<p>&copy; <?php echo date('Y'); ?> Mi Sitio Web. Todos los derechos reservados.</p>
     </footer>
     </body>
 
