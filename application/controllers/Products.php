@@ -11,14 +11,12 @@ class Products extends CI_Controller
 
 	public function index()
 	{
-		$products = $this->products_model->get_all_products();
-
 		$this->load->view('partials/header', [
 			'title' => 'Catálogo',
 			'css_file' => '/products.css'
 		]);
 		$this->load->view('pages/products/index', [
-			'products' => $products
+			'products' => $this->products_model->get_all_products()
 		]);
 		$this->load->view('partials/footer');
 	}
