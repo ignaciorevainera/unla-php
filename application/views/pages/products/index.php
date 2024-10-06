@@ -1,5 +1,5 @@
 <section>
-	<h1 class="text-center text-white my-5">Lista de productos</h1>
+	<h1 class="text-center my-5"><?php echo isset($title) ? $title : 'Mi Sitio Web' ?></h1>
 	<div class="table-responsive px-5">
 		<table class="table table-bordered table-dark table-striped">
 			<thead>
@@ -20,7 +20,9 @@
 							<td>
 								<a href="<?php echo base_url("products/show/$product->id"); ?>" class="btn btn-info">Ver</a>
 								<a href="<?php echo base_url("products/edit/$product->id"); ?>" class="btn btn-warning">Editar</a>
-								<a href="<?php echo base_url("products/delete/$product->id"); ?>" class="btn btn-danger">Eliminar</a>
+								<form action="<?php echo base_url("products/delete/$product->id") ?>" method="post">
+									<button type="submit" class="btn btn-danger">Borrar</button>
+								</form>
 							</td>
 						</tr>
 					<?php endforeach; ?>

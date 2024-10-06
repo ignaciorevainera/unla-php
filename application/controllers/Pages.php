@@ -3,17 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pages extends CI_Controller
 {
-
-	public function home()
-	{
-		$this->load->view('partials/header', [
-			'title' => 'Inicio',
-			'css_file' => 'home.css'
-		]);
-		$this->load->view('pages/home/index');
-		$this->load->view('partials/footer');
-	}
-
 	public function about()
 	{
 		$this->load->view('partials/header', [
