@@ -7,6 +7,7 @@ class Shows extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('shows_model');
+		$this->load->helper('url');
 	}
 
 	public function index()
@@ -54,10 +55,10 @@ class Shows extends CI_Controller
 		redirect('shows');
 	}
 
-	public function show($id)
+	public function show($show_id)
 	{
-		$title = 'Show #' . $id;
-		$show = $this->shows_model->get_show_by_id($id);
+		$title = 'Show #' . $show_id;
+		$show = $this->shows_model->get_show_by_id($show_id);
 		if ($show === null) {
 			show_404();
 		}
@@ -73,10 +74,10 @@ class Shows extends CI_Controller
 		$this->load->view('partials/footer');
 	}
 
-	public function edit($id)
+	public function edit($show_id)
 	{
-		$title = 'Editar show #' . $id;
-		$show = $this->shows_model->get_show_by_id($id);
+		$title = 'Editar show #' . $show_id;
+		$show = $this->shows_model->get_show_by_id($show_id);
 		if ($show === null) {
 			show_404();
 		}
@@ -92,7 +93,7 @@ class Shows extends CI_Controller
 		$this->load->view('partials/footer');
 	}
 
-	public function update($id)
+	public function update($show_id)
 	{
 		$show_data = [
 			'name' => $this->input->post('name'),
@@ -106,13 +107,13 @@ class Shows extends CI_Controller
 			'artist_id' => $this->input->post('artist_id'),
 		];
 
-		$this->shows_model->update_show($id, $show_data);
+		$this->shows_model->update_show($show_id, $show_data);
 		redirect('shows');
 	}
 
-	public function delete($id)
+	public function delete($show_id)
 	{
-		$this->shows_model->delete_show($id);
+		$this->shows_model->delete_show($show_id);
 		redirect('shows');
 	}
 }

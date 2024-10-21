@@ -1,45 +1,46 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Artists_model extends CI_Model
+class artists_model extends CI_Model
 {
 	// Constructor
 	public function __construct()
 	{
+		parent::__construct();
 		$this->load->database();
 	}
 
-	// Obtener todos los artistas
 	public function get_all_artists()
 	{
-		$query = $this->db->get('artist');
+		$this->db->select('artist_id, name, country, genre');
+		$this->db->from('artist');
+		$query = $this->db->get();
 		return $query->result();
 	}
 
-	// Obtener un artista por su ID
-	public function get_artist_by_id($artist_id)
+	public function get_artist_by_id($id)
 	{
-		$query = $this->db->get_where('artist', ['artist_id' => $artist_id]);
+		$this->db->select('artist_id, name, country, genre');
+		$this->db->from('artist');
+		$this->db->where('artist_id', $id);
+		$query = $this->db->get();
 		return $query->row();
 	}
 
-	// Crear un nuevo artista
-	public function create_artist($data)
+	public function add_new_artist($artist_data)
 	{
-		return $this->db->insert('artist', $data);
+		$this->db->insert('artist', $artist_data);
 	}
 
 	// Actualizar un artista
-	public function update_artist($artist_id, $data)
+	public function update_artist($artist_id, $artist_data)
 	{
-		$this->db->where('artist_id', $artist_id);
-		return $this->db->update('artist', $data);
+		$this->db->update('artist', $artist_data, ['artist_id' => $artist_id]);
 	}
 
 	// Eliminar un artista
 	public function delete_artist($artist_id)
 	{
-		$this->db->where('artist_id', $artist_id);
-		return $this->db->delete('artist');
+		$this->db->delete('artist', ['artist_id' => $artist_id]);
 	}
 }

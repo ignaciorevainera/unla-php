@@ -29,9 +29,9 @@
 					</svg></a></li>
 		</ul>
 
-		<div class="col-md-3 text-end">
-			<button type="button" class="btn btn-outline-light me-2">Iniciar Sesión</button>
-			<button type="button" class="btn btn-success">Registrarse</button>
-		</div>
+		<ul class="col-md-3 text-end">
+			<li><a href="<?php echo base_url('auth/login_form'); ?>" class="btn btn-primary px-2">Iniciar sesión</a></li>
+			<li><a href="<?php echo base_url('auth/signup_form'); ?>" class="btn btn-secondary px-2">Registrarse</a></li>
+		</ul>
 	</header>
 	<main>

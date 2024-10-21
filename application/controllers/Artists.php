@@ -13,72 +13,104 @@ class Artists extends CI_Controller
 	// Mostrar todos los artistas
 	public function index()
 	{
-		$data['title'] = 'Lista de Artistas';
-		$data['artists'] = $this->artists_model->get_all_artists();
+		$title = 'Lista de Artistas';
 
-		$this->load->view('partials/header', $data);
-		$this->load->view('pages/artists/index', $data);
+		$this->load->view('partials/header', [
+			'title' => $title,
+			'css_file' => '/artists.css'
+		]);
+		$this->load->view('pages/artists/index', [
+			'title' => $title,
+			'artists' => $this->artists_model->get_all_artists()
+		]);
 		$this->load->view('partials/footer');
 	}
 
-	// Mostrar información de un solo artista
-	public function show($artist_id)
-	{
-		$data['artist'] = $this->artists_model->get_artist_by_id($artist_id);
-		$data['title'] = 'Información del Artista';
-
-		$this->load->view('partials/header', $data);
-		$this->load->view('pages/artists/show', $data);
-		$this->load->view('partials/footer');
-	}
-
-	// Crear nuevo artista (formulario y procesamiento)
 	public function create()
 	{
-		$data['title'] = 'Crear Artista';
+		$title = 'Crear Artista';
 
-		if ($this->input->post()) {
-			$artist_data = [
-				'name' => $this->input->post('name'),
-				'genre' => $this->input->post('genre'),
-				'country' => $this->input->post('country')
-			];
-
-			$this->artists_model->create_artist($artist_data);
-			redirect('artist');
-		} else {
-			$this->load->view('partials/header', $data);
-			$this->load->view('pages/artists/create', $data);
-			$this->load->view('partials/footer');
-		}
+		$this->load->view('partials/header', [
+			'title' => $title,
+			'css_file' => '/add-artist.css'
+		]);
+		$this->load->view('pages/artists/create', [
+			'title' => $title
+		]);
+		$this->load->view('partials/footer');
 	}
 
-	// Editar un artista (formulario y procesamiento)
+	public function store()
+	{
+		$artist_data = [
+			'name' => $this->input->post('name'),
+			'genre' => $this->input->post('genre'),
+			'country' => $this->input->post('country')
+
+		];
+
+		$this->artists_model->add_new_artist($artist_data);
+		redirect('artists');
+	}
+
+	public function show($artist_id)
+	{
+		$title = 'Artist #' . $artist_id;
+		$artist = $this->artists_model->get_artist_by_id($artist_id);
+		if ($artist === null) {
+			show_404();
+		}
+
+		$this->load->view('partials/header', [
+			'title' => $title,
+			'css_file' => '/show-artist.css'
+		]);
+		$this->load->view('pages/artists/show', [
+			'title' => $title,
+			'artist' => $artist
+		]);
+		$this->load->view('partials/footer');
+	}
+
 	public function edit($artist_id)
 	{
-		$data['artist'] = $this->artists_model->get_artist_by_id($artist_id);
-		$data['title'] = 'Editar Artista';
+		$title = 'Editar Artista #' . $artist_id;
+		$artist = $this->artists_model->get_artist_by_id($artist_id);
 
-		if ($this->input->post()) {
-			$artist_data = [
-				'name' => $this->input->post('name'),
-				'genre' => $this->input->post('genre'),
-				'country' => $this->input->post('country')
-			];
-
-			$this->artists_model->update_artist($artist_id, $artist_data);
-			redirect('artist');
-		} else {
-			$this->load->view('partials/header', $data);
-			$this->load->view('pages/artists/edit', $data);
-			$this->load->view('partials/footer');
+		if ($artist === null) {
+			show_404();
 		}
+
+		$this->load->view('partials/header', [
+			'title' => $title,
+			'css_file' => '/edit-artist.css'
+		]);
+		$this->load->view('pages/artists/edit', [
+			'title' => $title,
+			'artist' => $artist
+		]);
+		$this->load->view('partials/footer');
 	}
 
-	// Eliminar un artista
+	public function update($artist_id)
+	{
+		$artist_data = [
+			'name' => $this->input->post('name'),
+			'genre' => $this->input->post('genre'),
+			'country' => $this->input->post('country')
+		];
+
+		$this->artists_model->update_artist($artist_id, $artist_data);
+		redirect('artists');
+	}
 	public function delete($artist_id)
 	{
+		$this->db->where('artist_id', $artist_id);
+		$this->db->delete('show');
+
 		$this->artists_model->delete_artist($artist_id);
-		redirect('artist');
+
+		$this->session->set_flashdata('message', 'Artista y shows eliminados correctamente.');
+		redirect('artists');
 	}
 }
