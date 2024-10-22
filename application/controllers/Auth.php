@@ -11,6 +11,12 @@ class Auth extends CI_Controller
 
 	public function signup_form()
 	{
+		// Redirigir si ya está logueado
+		if ($this->session->userdata('user')) {
+			redirect('shows');  // Redirige a la página de shows si ya está logueado
+			die;
+		}
+
 		$this->load->view('partials/header', [
 			'title' => 'Register',
 			'css_file' => '/auth.css'
@@ -46,8 +52,9 @@ class Auth extends CI_Controller
 
 	public function login_form()
 	{
-		if ($this->session->userdata('user') !== NULL) {
-			echo $this->session->userdata('user')['email'];
+		// Redirigir si ya está logueado
+		if ($this->session->userdata('user')) {
+			redirect('shows');  // Redirige a la página de shows si ya está logueado
 			die;
 		}
 
@@ -76,10 +83,17 @@ class Auth extends CI_Controller
 
 		if ($user !== NULL && password_verify($this->input->post('password'), $user['password'])) {
 			$this->session->set_userdata('user', $user);
+			$this->session->set_userdata('role', $user['role_id']);
 			redirect('shows');
 		} else {
 			$this->session->set_flashdata('errors', ['Credenciales incorrectas']);
 			redirect('auth/login_form');
 		}
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('auth/login_form');
 	}
 }

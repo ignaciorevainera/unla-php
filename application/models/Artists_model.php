@@ -12,10 +12,9 @@ class artists_model extends CI_Model
 
 	public function get_all_artists()
 	{
-		$this->db->select('artist_id, name, country, genre');
-		$this->db->from('artist');
-		$query = $this->db->get();
-		return $query->result();
+		// Obtener todos los artistas de la base de datos
+		$query = $this->db->get('artist');  // Asumiendo que la tabla se llama 'artists'
+		return $query->result();  // Retorna un array de objetos de artistas
 	}
 
 	public function get_artist_by_id($id)

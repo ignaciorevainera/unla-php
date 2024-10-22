@@ -13,7 +13,7 @@ class Artists extends CI_Controller
 	// Mostrar todos los artistas
 	public function index()
 	{
-		$title = 'Lista de Artistas';
+		$title = 'Artistas';
 
 		$this->load->view('partials/header', [
 			'title' => $title,
@@ -28,7 +28,9 @@ class Artists extends CI_Controller
 
 	public function create()
 	{
-		$title = 'Crear Artista';
+		$this->check_admin();
+
+		$title = 'Agregar artista';
 
 		$this->load->view('partials/header', [
 			'title' => $title,
@@ -42,6 +44,8 @@ class Artists extends CI_Controller
 
 	public function store()
 	{
+		$this->check_admin();
+
 		$artist_data = [
 			'name' => $this->input->post('name'),
 			'genre' => $this->input->post('genre'),
@@ -55,7 +59,7 @@ class Artists extends CI_Controller
 
 	public function show($artist_id)
 	{
-		$title = 'Artist #' . $artist_id;
+		$title = 'Artista #' . $artist_id;
 		$artist = $this->artists_model->get_artist_by_id($artist_id);
 		if ($artist === null) {
 			show_404();
@@ -74,7 +78,9 @@ class Artists extends CI_Controller
 
 	public function edit($artist_id)
 	{
-		$title = 'Editar Artista #' . $artist_id;
+		$this->check_admin();
+
+		$title = 'Editar artista #' . $artist_id;
 		$artist = $this->artists_model->get_artist_by_id($artist_id);
 
 		if ($artist === null) {
@@ -94,6 +100,8 @@ class Artists extends CI_Controller
 
 	public function update($artist_id)
 	{
+		$this->check_admin();
+
 		$artist_data = [
 			'name' => $this->input->post('name'),
 			'genre' => $this->input->post('genre'),
@@ -105,6 +113,8 @@ class Artists extends CI_Controller
 	}
 	public function delete($artist_id)
 	{
+		$this->check_admin();
+
 		$this->db->where('artist_id', $artist_id);
 		$this->db->delete('show');
 
@@ -112,5 +122,14 @@ class Artists extends CI_Controller
 
 		$this->session->set_flashdata('message', 'Artista y shows eliminados correctamente.');
 		redirect('artists');
+	}
+
+	private function check_admin()
+	{
+		$user = $this->session->userdata('user');
+		if ($user['role_id'] != 1) {  // Role_id 1 es "admin", 2 es "customer"
+			$this->session->set_flashdata('error', 'Acceso denegado. Solo los administradores pueden realizar esta acción.');
+			redirect('artists');  // Redirige si el usuario no es admin
+		}
 	}
 }

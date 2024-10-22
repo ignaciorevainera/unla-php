@@ -1,56 +1,52 @@
-<section>
-	<h1 class="text-center my-5"><?php echo ($title) ?></h1>
-	<div class="table-responsive px-5">
-		<table class="table table-bordered table-dark table-striped">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nombre del Show</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Hora</th>
-					<th scope="col">Precio</th>
-					<th scope="col">Cantidad Disponible</th>
-					<th scope="col">Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><?php echo $show->show_id ?></td>
-					<td><?php echo $show->name; ?></td>
-					<td><?php echo $show->date; ?></td>
-					<td><?php echo $show->time; ?></td>
-					<td><?php echo '$' . $show->price ?></td>
-					<td><?php echo $show->available_quantity ?></td>
-					<td class="d-flex align-items-center justify-items-center gap-4">
-						<a href="<?php echo base_url("shows/show/$show->show_id"); ?>" class="btn btn-info">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-								<path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-							</svg>
-						</a>
-						<a href="<?php echo base_url("shows/edit/$show->show_id"); ?>" class="btn btn-warning">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-								<path d="M13.5 6.5l4 4" />
-							</svg>
-						</a>
-						<form action="<?php echo base_url("shows/delete/$show->show_id") ?>" method="post" style="display:inline-block;">
-							<button type="submit" class="btn btn-danger">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-									<path d="M4 7l16 0" />
-									<path d="M10 11l0 6" />
-									<path d="M14 11l0 6" />
-									<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-									<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-								</svg>
-							</button>
-						</form>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+<section class="container">
+	<h1 class="text-center fw-bold"><?php echo $show->artist_name; ?></h1>
+	<h2 class="text-center mb-4"><?php echo $show->name; ?></h2>
+
+	<div class="card bg-dark text-light border-light mb-4">
+		<div class="row g-0">
+			<div class="col-md-4">
+				<!-- <img src="<?php echo base_url('uploads/shows/' . $show->image); ?>" class="img-fluid rounded-start" alt="<?php echo $show->name; ?>" style="height: 100%; object-fit: cover;"> -->
+			</div>
+
+			<div class="col-md-8">
+				<div class="card-body">
+					<div class="d-flex gap-2 align-items-center">
+						<h5 class="card-title">Detalles del Show</h5>
+
+					</div>
+					<p><?php echo $show->description; ?></p>
+
+					<ul class="list-unstyled mb-4">
+						<li><?php echo date('d/m/Y', strtotime($show->date)) . " • " . date('H:i', strtotime($show->time)); ?></li>
+						<li class="card-price text-end">Desde <strong class="text-success"><?php echo "$" . $show->price; ?></strong></li>
+						<li class="card-total_quantity text-end"><?php echo $show->total_quantity; ?> en total</li>
+						<li class="card-available-quantity text-end"><?php echo $show->available_quantity; ?> disponibles</li>
+					</ul>
+
+					<div class="d-flex justify-content-between">
+						<div class="d-flex align-items-center gap-2">
+							<?php echo edit_button($show->show_id); ?>
+
+							<?php if ($show->status == 'available'): ?>
+								<span class="badge bg-success">Activo</span>
+							<?php elseif ($show->status == 'sold_out'): ?>
+								<span class="badge bg-warning">Agotado</span>
+							<?php else: ?>
+								<span class="badge bg-danger">No Disponible</span>
+							<?php endif; ?>
+						</div>
+						<?php if ($this->session->userdata('role') == 1): ?>
+							<div class="d-flex gap-2">
+								<?php echo edit_button($show->show_id); ?>
+								<?php echo delete_button($show->show_id); ?>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-center">
+		<a href="<?php echo base_url('shows'); ?>" class="btn btn-outline-light">Volver a la Lista de Shows</a>
 	</div>
 </section>

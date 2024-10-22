@@ -1,33 +1,36 @@
 <section>
-	<h1 class="text-center my-5"><?php echo ($title) ?></h1>
-	<div class="table-responsive px-5">
-		<table class="table table-bordered table-dark table-striped">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">País de Origen</th>
-					<th scope="col">Género Musical</th>
-					<th scope="col">Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
+	<div class="container">
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			<?php if (!empty($artists)): ?>
 				<?php foreach ($artists as $artist): ?>
-					<tr>
-						<td><?php echo $artist->artist_id ?></td>
-						<td><?php echo $artist->name ?></td>
-						<td><?php echo $artist->country ?></td>
-						<td><?php echo $artist->genre ?></td>
-						<td>
-							<a href="<?php echo base_url("artists/show/$artist->artist_id"); ?>" class="btn btn-info">Ver</a>
-							<a href="<?php echo base_url("artists/edit/$artist->artist_id"); ?>" class="btn btn-warning">Editar</a>
-							<form action="<?php echo base_url("artists/delete/$artist->artist_id"); ?>" method="post" style="display:inline-block;">
-								<button type="submit" class="btn btn-danger">Eliminar</button>
-							</form>
-						</td>
-					</tr>
+					<div class="col">
+						<div class="card h-100 bg-dark text-light border-light">
+							<!-- <img src="<?php echo base_url('uploads/shows/' . $artist->image); ?>" class="card-img-top" alt="<?php echo $artist->name; ?>" style="height: 200px; object-fit: cover;"> -->
+
+							<div class="card-body">
+								<h4 class="card-title fw-bold"><?php echo $artist->name; ?></h>
+									<h5 class="card-text fst-italic"><?php echo $artist->country; ?></h5>
+									<h6><?php echo $artist->genre; ?></h6>
+							</div>
+
+							<?php if ($this->session->userdata('role') == 1): ?>
+								<div class="card-footer p-4 d-flex justify-content-end">
+
+									<div class="d-flex gap-2">
+										<?php echo artist_edit_button($artist->artist_id); ?>
+										<?php echo artist_delete_button($artist->artist_id); ?>
+									</div>
+								</div>
+							<?php endif; ?>
+						</div>
+					</div>
 				<?php endforeach; ?>
-			</tbody>
-		</table>
+			<?php else: ?>
+				<div class="col-12">
+					<div class="alert alert-warning text-center" role="alert">
+						No hay artistas para mostrar.
+					</div>
+				</div>
+			<?php endif; ?>
+		</div>
 	</div>
-</section>

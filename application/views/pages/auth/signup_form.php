@@ -1,29 +1,39 @@
 <?php $errors = $this->session->flashdata('errors'); ?>
 <?php $success = $this->session->flashdata('success'); ?>
-<?php if (isset($errors)): ?>
-	<?php foreach ($errors as $error): ?>
-		<div class="alert alert-danger" role="alert">
-			<?php echo $error; ?>
+
+<div class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
+	<form action="<?php echo base_url('auth/signup'); ?>" method="post" class="w-75">
+		<div class="mb-3">
+			<label for="email" class="form-label fw-bold">Correo electrónico:</label>
+			<input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="name@example.com" required>
 		</div>
-	<?php endforeach; ?>
-<?php endif ?>
-<form action="<?php echo base_url('auth/signup'); ?>" method="post">
-	<div class="mb-3">
-		<label for="email" class="form-label">Email:</label>
-		<input type="email" class="form-control" id="email" name="email" required>
-	</div>
-	<div class="mb-3">
-		<label for="password" class="form-label">Password:</label>
-		<input type="password" class="form-control" id="password" name="password" required>
-	</div>
-	<div class="mb-3">
-		<label for="confirm_password" class="form-label">Confirmar contraseña:</label>
-		<input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-	</div>
-	<button type="submit" class="btn btn-primary">Register</button>
-</form>
-<?php if (isset($success)): ?>
-	<div class="alert alert-success" role="alert">
-		<?php echo $success; ?>
-	</div>
-<?php endif; ?>
+
+		<div class="mb-3">
+			<label for="password" class="form-label fw-bold">Contraseña:</label>
+			<input type="password" class="form-control form-control-lg" id="password" name="password" required>
+		</div>
+
+		<div class="mb-3">
+			<label for="confirm_password" class="form-label fw-bold">Confirmar contraseña:</label>
+			<input type="password" class="form-control form-control-lg" id="confirm_password" name="confirm_password" required>
+		</div>
+
+		<!-- Submit Button -->
+		<button type="submit" class="btn btn-primary">Registrarse</button>
+	</form>
+
+	<?php if (isset($errors)): ?>
+		<?php foreach ($errors as $error): ?>
+			<div class="alert alert-danger mt-3 w-75" role="alert">
+				<?php echo $error; ?>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	<?php if (isset($success)): ?>
+		<div class="alert alert-success mt-3 w-75" role="alert">
+			<?php echo $success; ?>
+		</div>
+	<?php endif; ?>
+
+</div>
