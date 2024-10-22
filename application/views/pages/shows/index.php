@@ -4,17 +4,19 @@
 			<?php if (!empty($shows)): ?>
 				<?php foreach ($shows as $show): ?>
 					<div class="col">
-						<div class="card h-100 bg-dark text-light border-light">
+						<div class="card h-100 bg-dark text-light border-secondary rounded">
 							<!-- <img src="<?php echo base_url('uploads/shows/' . $show->image); ?>" class="card-img-top" alt="<?php echo $show->name; ?>" style="height: 200px; object-fit: cover;"> -->
 
-							<div class="card-body">
-								<h5 class="card-title fw-bold"><?php echo $show->artist_name; ?></h5>
-								<p class="card-text fst-italic"><?php echo $show->name; ?></p>
+							<div class="card-body d-flex flex-column">
+								<div class="flex-grow-1 mb-3">
+									<h5 class="card-title display-6 fw-bold"><?php echo $show->artist_name; ?></h5>
+									<p class="card-text fst-italic"><?php echo $show->name; ?></p>
+								</div>
 
 								<ul class="list-unstyled">
-									<li><?php echo date('d/m/Y', strtotime($show->date)) . " • " . date('H:i', strtotime($show->time)); ?></li>
-									<li class="card-price text-end">Desde <strong class="text-success"><?php echo "$" . $show->price; ?></strong></li>
-									<li class="card-tickets-remaining text-end"><?php echo $show->available_quantity; ?> disponibles</li>
+									<li class="mb-4 fs-5"><?php echo date('d/m/Y', strtotime($show->date)) . " • " . date('H:i', strtotime($show->time)); ?></li>
+									<li class="card-price fs-3 fw-normal text-end">Desde <strong class="text-success"><?php echo "$" . $show->price; ?></strong></li>
+									<li class="small text-end"><?php echo $show->available_quantity; ?> disponibles</li>
 								</ul>
 							</div>
 

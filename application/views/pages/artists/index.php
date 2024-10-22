@@ -4,7 +4,7 @@
 			<?php if (!empty($artists)): ?>
 				<?php foreach ($artists as $artist): ?>
 					<div class="col">
-						<div class="card h-100 bg-dark text-light border-light">
+						<div class="card h-100 bg-dark text-light border-secondary rounded">
 							<!-- <img src="<?php echo base_url('uploads/shows/' . $artist->image); ?>" class="card-img-top" alt="<?php echo $artist->name; ?>" style="height: 200px; object-fit: cover;"> -->
 
 							<div class="card-body">

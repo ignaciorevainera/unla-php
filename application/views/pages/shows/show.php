@@ -19,8 +19,8 @@
 					<ul class="list-unstyled mb-4">
 						<li><?php echo date('d/m/Y', strtotime($show->date)) . " • " . date('H:i', strtotime($show->time)); ?></li>
 						<li class="card-price text-end">Desde <strong class="text-success"><?php echo "$" . $show->price; ?></strong></li>
-						<li class="card-total_quantity text-end"><?php echo $show->total_quantity; ?> en total</li>
-						<li class="card-available-quantity text-end"><?php echo $show->available_quantity; ?> disponibles</li>
+						<li class="small text-end"><?php echo $show->total_quantity; ?> en total</li>
+						<li class="small text-end"><?php echo $show->available_quantity; ?> disponibles</li>
 					</ul>
 
 					<div class="d-flex justify-content-between">

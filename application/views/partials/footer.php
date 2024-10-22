@@ -1,10 +1,10 @@
     </main>
-    <footer class="d-flex flex-column align-items-center bg-dark mt-4">
+    <footer class="d-flex flex-column align-items-center bg-dark mt-5">
     	<ul class="nav justify-content-center gap-4 p-4">
     		<li><a href="<?php echo base_url(); ?>" class="link-underline-secondary text-white">Inicio</a></li>
-    		<li><a href="<?php echo base_url('products'); ?>" class="link-underline-secondary text-white">Catálogo</a></li>
-    		<li><a href="<?php echo base_url('about'); ?>" class="link-underline-secondary text-white">Sobre Nosotros</a></li>
-    		<li><a href="<?php echo base_url('contact'); ?>" class="link-underline-secondary text-white">Contacto</a></li>
+    		<li><a href="<?php echo base_url('faqs'); ?>" class="link-underline-secondary text-white">FAQs</a></li>
+    		<li><a href="<?php echo base_url('shows'); ?>" class="link-underline-secondary text-white">Espectáculos</a></li>
+    		<li><a href="<?php echo base_url('artists'); ?>" class="link-underline-secondary text-white">Artistas</a></li>
     	</ul>
     	<p class="text-white">&copy; <?php echo date('Y'); ?> Ignacio Jesús Revainera | UNLa.</p>
     </footer>

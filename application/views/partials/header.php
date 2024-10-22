@@ -17,11 +17,21 @@
 </head>
 
 <body>
-	<header class="d-flex flex-wrap align-items-center justify-content-between p-4 bg-dark mb-4">
+	<header class="d-flex flex-wrap align-items-center justify-content-between p-4 bg-dark mb-5">
 
 		<ul class="nav justify-content-center align-items-center gap-4">
-			<a href="<?php echo base_url('artists'); ?>" class="nav-link text-white p-0">Artistas</a>
-			<a href="<?php echo base_url('shows'); ?>" class="nav-link text-white p-0">Espectáculos</a>
+			<li>
+				<a href="<?php echo base_url(); ?>" class="nav-link text-white p-0">Inicio</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url('faqs'); ?>" class="nav-link text-white p-0">FAQs</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url('shows'); ?>" class="nav-link text-white p-0">Espectáculos</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url('artists'); ?>" class="nav-link text-white p-0">Artistas</a>
+			</li>
 			<?php if ($this->session->userdata('user') && $this->session->userdata('role') == 1): ?>
 				<li class="nav-item d-flex gap-1">
 					<a href="<?php echo base_url('shows/create'); ?>" class="btn btn-success btn-icon d-flex align-items-center">
