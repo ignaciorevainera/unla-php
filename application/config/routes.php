@@ -1,69 +1,21 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-/*
-| -------------------------------------------------------------------------
-| URI ROUTING
-| -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
-|
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
-|
-|	example.com/class/method/id/
-|
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
-|
-| Please see the user guide for complete details:
-|
-|	https://codeigniter.com/userguide3/general/routing.html
-|
-| -------------------------------------------------------------------------
-| RESERVED ROUTES
-| -------------------------------------------------------------------------
-|
-| There are three reserved routes:
-|
-|	$route['default_controller'] = 'welcome';
-|
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
-|
-|	$route['404_override'] = 'errors/page_missing';
-|
-| This route will tell the Router which controller/method to use if those
-| provided in the URL cannot be matched to a valid route.
-|
-|	$route['translate_uri_dashes'] = FALSE;
-|
-| This is not exactly a route, but allows you to automatically route
-| controller and method names that contain dashes. '-' isn't a valid
-| class or method name character, so it requires translation.
-| When you set this option to TRUE, it will replace ALL dashes in the
-| controller and method URI segments.
-|
-| Examples:	my-controller/index	-> my_controller/index
-|		my-controller/my-method	-> my_controller/my_method
-*/
-$route['default_controller'] = 'pages/home';
-$route['home'] = 'pages/home';
-$route['faqs'] = 'pages/faqs';
-$route['shows'] = 'shows/index';
-$route['shows/show/(:num)'] = 'shows/show/$1';
-$route['shows/create'] = 'shows/create';
-$route['shows/edit/(:num)'] = 'shows/edit/$1';
-$route['shows/delete/(:num)'] = 'shows/delete/$1';
-$route['shows/buy/(:num)'] = 'shows/buy/$1';
-$route['artist'] = 'artists/index';
-$route['artist/create'] = 'artists/create';
-$route['artist/edit/(:num)'] = 'artists/edit/$1';
-$route['artist/show/(:num)'] = 'artists/show/$1';
-$route['artist/delete/(:num)'] = 'artists/delete/$1';
-$route['purchases'] = 'purchases/index';
+$route['default_controller'] = 'Page/home';
+$route['home'] = 'Page/home';
+$route['faqs'] = 'Page/faqs';
+$route['shows'] = 'Show/index';
+$route['shows/show/(:num)'] = 'Show/show/$1';
+$route['shows/create'] = 'Show/create';
+$route['shows/edit/(:num)'] = 'Show/edit/$1';
+$route['shows/delete/(:num)'] = 'Show/delete/$1';
+$route['shows/buy/(:num)'] = 'Show/buy/$1';
+$route['artists'] = 'Artist/index';
+$route['artists/create'] = 'Artist/create';
+$route['artists/edit/(:num)'] = 'Artist/edit/$1';
+$route['artists/show/(:num)'] = 'Artist/show/$1';
+$route['artists/delete/(:num)'] = 'Artist/delete/$1';
+$route['purchases'] = 'Purchase/index';
 $route['customers'] = 'Customer/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

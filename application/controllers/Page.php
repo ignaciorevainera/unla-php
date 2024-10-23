@@ -1,24 +1,25 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Customer extends CI_Controller
+class Page extends CI_Controller
 {
-
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('CustomerModel');
 		$this->load->helper('title_helper');
 	}
 
-	public function index()
+	public function home()
 	{
-		$this->load_views('Clientes', 'pages/customers/index', [
-			'customers' => $this->CustomerModel->get_customers_with_purchase_count()
-		]);
+		$this->load_views('TicketMaster', 'pages/home/index');
 	}
 
-	private function load_views($title, $view, $data = [])
+	public function faqs()
+	{
+		$this->load_views('Preguntas Frecuentes', 'pages/faqs/index');
+	}
+
+	private function load_views($title, $view)
 	{
 		$data['title'] = $title;
 		$this->load->view('partials/header', $data);

@@ -14,16 +14,9 @@ class Auth extends CI_Controller
 	{
 		if ($this->session->userdata('user')) {
 			redirect('shows');
-			die;
 		}
 
-		$title = 'Registro';
-
-		$this->load->view('partials/header', [
-			'title' => $title,
-		]);
-		$this->load->view('pages/auth/signup_form');
-		$this->load->view('partials/footer');
+		$this->load_views('Registro', 'pages/auth/signup_form');
 	}
 
 	public function signup()
@@ -32,9 +25,7 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		$this->form_validation->set_rules('confirm_password', 'ConfirmPassword', 'required|matches[password]');
 
-		$this->form_validation->set_message('required', 'El campo %d es obligatorio');
-		$this->form_validation->set_message('valid_email', 'El campo %d debe ser un email válido');
-		$this->form_validation->set_message('matches', 'Las contraseñas no coinciden');
+		$this->set_validation_messages();
 
 		if ($this->form_validation->run() === FALSE) {
 			$this->session->set_flashdata('errors', $this->form_validation->error_array());
@@ -44,8 +35,9 @@ class Auth extends CI_Controller
 		$user_data = [
 			'email' => $this->input->post('email'),
 			'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-			'role_id' => 2 
+			'role_id' => 2
 		];
+
 		$this->UserModel->create_user($user_data);
 		$this->session->set_flashdata('success', 'Usuario creado correctamente');
 		redirect('auth/login_form');
@@ -55,16 +47,8 @@ class Auth extends CI_Controller
 	{
 		if ($this->session->userdata('user')) {
 			redirect('shows');
-			die;
 		}
-
-		$title = 'Iniciar Sesión';
-
-		$this->load->view('partials/header', [
-			'title' => $title,
-		]);
-		$this->load->view('pages/auth/login_form');
-		$this->load->view('partials/footer');
+		$this->load_views('Iniciar Sesión', 'pages/auth/login_form');
 	}
 
 	public function login()
@@ -72,8 +56,7 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
-		$this->form_validation->set_message('required', 'El campo %d es obligatorio');
-		$this->form_validation->set_message('valid_email', 'El campo %d debe ser un email válido');
+		$this->set_validation_messages();
 
 		if ($this->form_validation->run() === FALSE) {
 			$this->session->set_flashdata('errors', $this->form_validation->error_array());
@@ -96,5 +79,20 @@ class Auth extends CI_Controller
 	{
 		$this->session->sess_destroy();
 		redirect('auth/login_form');
+	}
+
+	private function set_validation_messages()
+	{
+		$this->form_validation->set_message('required', 'El campo %s es obligatorio');
+		$this->form_validation->set_message('valid_email', 'El campo %s debe ser un email válido');
+		$this->form_validation->set_message('matches', 'Las contraseñas no coinciden');
+	}
+
+	private function load_views($title, $view, $data = [])
+	{
+		$data['title'] = $title;
+		$this->load->view('partials/header', $data);
+		$this->load->view($view, $data);
+		$this->load->view('partials/footer');
 	}
 }

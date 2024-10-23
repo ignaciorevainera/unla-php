@@ -40,10 +40,10 @@
 			</li>
 			<?php if ($this->session->userdata('user') && $this->session->userdata('role') == 1): ?>
 				<li class="nav-item d-flex gap-1">
-					<a href="<?php echo base_url('shows/create'); ?>" class="btn btn-success btn-icon d-flex align-items-center">
+					<a href="<?php echo base_url('shows/create'); ?>" class="btn btn-success d-flex align-items-center">
 						Agregar espectáculo
 					</a>
-					<a href="<?php echo base_url('artists/create'); ?>" class="btn btn-secondary btn-icon d-flex align-items-center">
+					<a href="<?php echo base_url('artists/create'); ?>" class="btn btn-secondary d-flex align-items-center">
 						Agregar artista
 					</a>
 				</li>

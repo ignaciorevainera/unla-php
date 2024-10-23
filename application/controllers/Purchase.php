@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Purchases extends CI_Controller
+class Purchase extends CI_Controller
 {
 
 	public function __construct()
@@ -13,15 +13,16 @@ class Purchases extends CI_Controller
 
 	public function index()
 	{
-		$title = 'Lista de Ventas';
-
-		$this->load->view('partials/header', [
-			'title' => $title,
-		]);
-		$this->load->view('pages/purchases/index', [
-			'title' => $title,
+		$this->load_views('Compras', 'pages/purchases/index', [
 			'purchases' => $this->PurchaseModel->get_all_purchases()
 		]);
+	}
+
+	private function load_views($title, $view, $data = [])
+	{
+		$data['title'] = $title;
+		$this->load->view('partials/header', $data);
+		$this->load->view($view, $data);
 		$this->load->view('partials/footer');
 	}
 }
