@@ -6,8 +6,8 @@ class Shows extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('shows_model');
-		$this->load->model('artists_model');
+		$this->load->model('ShowModel');
+		$this->load->model('ArtistModel');
 		$this->load->helper('url');
 		$this->load->helper('title_helper');
 	}
@@ -21,7 +21,7 @@ class Shows extends CI_Controller
 		]);
 		$this->load->view('pages/shows/index', [
 			'title' => $title,
-			'shows' => $this->shows_model->get_all_shows() // Se obtienen los shows con el artista
+			'shows' => $this->ShowModel->get_all_shows() 
 		]);
 		$this->load->view('partials/footer');
 	}
@@ -36,7 +36,7 @@ class Shows extends CI_Controller
 		]);
 		$this->load->view('pages/shows/create', [
 			'title' => $title,
-			'artists' => $this->artists_model->get_all_artists()
+			'artists' => $this->ArtistModel->get_all_artists()
 		]);
 		$this->load->view('partials/footer');
 	}
@@ -57,13 +57,13 @@ class Shows extends CI_Controller
 			'artist_id' => $this->input->post('artist_id'),
 		];
 
-		$this->shows_model->add_new_show($show_data);
+		$this->ShowModel->add_new_show($show_data);
 		redirect('shows');
 	}
 
 	public function show($show_id)
 	{
-		$show = $this->shows_model->get_show_by_id($show_id);
+		$show = $this->ShowModel->get_show_by_id($show_id);
 
 		$title = "$show->artist_name";
 
@@ -87,7 +87,7 @@ class Shows extends CI_Controller
 
 		$title = "Editar espectáculo #$show_id";
 
-		$show = $this->shows_model->get_show_by_id($show_id);
+		$show = $this->ShowModel->get_show_by_id($show_id);
 
 		if ($show === null) {
 			show_404();
@@ -99,7 +99,7 @@ class Shows extends CI_Controller
 		$this->load->view('pages/shows/edit', [
 			'title' => $title,
 			'show' => $show,
-			'artists' => $this->artists_model->get_all_artists()
+			'artists' => $this->ArtistModel->get_all_artists()
 		]);
 		$this->load->view('partials/footer');
 	}
@@ -120,18 +120,15 @@ class Shows extends CI_Controller
 			'artist_id' => $this->input->post('artist_id'),
 		];
 
-		// Actualiza el show en la base de datos
-		$this->shows_model->update_show($show_id, $show_data);
+		$this->ShowModel->update_show($show_id, $show_data);
 
-		// Verificación de fecha para actualizar el estado
 		$available_quantity = $this->input->post('available_quantity');
 		$date = $this->input->post('date');
 		$current_date = date('Y-m-d');
 		if ($date < $current_date) {
-			$this->shows_model->update_show($show_id, ['status' => 'expired']);
+			$this->ShowModel->update_show($show_id, ['status' => 'expired']);
 		} elseif ($available_quantity == 0) {
-			// Si las entradas se han agotado, actualizar a 'sold_out'
-			$this->shows_model->update_show($show_id, ['status' => 'sold_out']);
+			$this->ShowModel->update_show($show_id, ['status' => 'sold_out']);
 		}
 		redirect('shows');
 	}
@@ -140,7 +137,7 @@ class Shows extends CI_Controller
 	{
 		$this->check_admin();
 
-		$this->shows_model->delete_show($show_id);
+		$this->ShowModel->delete_show($show_id);
 		redirect('shows');
 	}
 
@@ -156,14 +153,13 @@ class Shows extends CI_Controller
 			'title' => $title,
 		]);
 
-		$show = $this->shows_model->get_show($show_id);
+		$show = $this->ShowModel->get_show($show_id);
 
 		if ($show->status != 'available') {
 			$this->session->set_flashdata('error', 'El show no está disponible.');
 			redirect("shows/show/$show_id");
 		}
 
-		// Cargar la vista con el formulario de compra
 		$this->load->view('pages/shows/buy', [
 			'title' => $title,
 			'show' => $show
@@ -185,8 +181,7 @@ class Shows extends CI_Controller
 		$this->load->view('partials/header', [
 			'title' => $title,
 		]);
-		// Verificar si hay suficientes entradas disponibles
-		$show = $this->shows_model->get_show($show_id);
+		$show = $this->ShowModel->get_show($show_id);
 		if ($show->status != 'available') {
 			$data['message'] = 'Lo sentimos, el show no está disponible.';
 			$data['success'] = false;
@@ -201,30 +196,27 @@ class Shows extends CI_Controller
 			return;
 		}
 
-		$this->load->model('purchase_model');
-		// Registrar la compra en la base de datos
-		$this->purchase_model->create_purchase([
+		$this->load->model('PurchaseModel');
+		$this->PurchaseModel->create_purchase([
 			'user_id' => $this->session->userdata('user')['user_id'],
 			'show_id' => $show_id,
 			'quantity' => $quantity,
 			'total_price' => $quantity * $show->price,
 		]);
 
-		// Actualizar la cantidad de entradas disponibles
 		$new_available_quantity = $show->available_quantity - $quantity;
 		$status = $new_available_quantity == 0 ? 'sold_out' : $show->status;
 
-		$this->shows_model->update_show($show_id, [
+		$this->ShowModel->update_show($show_id, [
 			'available_quantity' => $new_available_quantity,
 			'status' => $status
 		]);
 
 		$current_date = date('Y-m-d');
 		if ($show->date < $current_date) {
-			$this->shows_model->update_show($show_id, ['status' => 'expired']);
+			$this->ShowModel->update_show($show_id, ['status' => 'expired']);
 		}
 
-		// Redirigir con mensaje de éxito
 		$data['message'] = '¡Compra realizada con éxito! Has comprado ' . $quantity . ' entrada(s).';
 		$data['success'] = true;
 		$data['show'] = $show;
@@ -236,9 +228,9 @@ class Shows extends CI_Controller
 	private function check_admin()
 	{
 		$user = $this->session->userdata('user');
-		if ($user['role_id'] != 1) {  // Role_id 1 es "admin", 2 es "customer"
+		if ($user['role_id'] != 1) {
 			$this->session->set_flashdata('error', 'Acceso denegado. Solo los administradores pueden realizar esta acción.');
-			redirect('shows');  // Redirige si el usuario no es admin
+			redirect('shows');
 		}
 	}
 }

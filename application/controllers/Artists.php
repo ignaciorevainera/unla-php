@@ -6,12 +6,11 @@ class Artists extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('artists_model');
+		$this->load->model('ArtistModel');
 		$this->load->helper('url');
 		$this->load->helper('title_helper');
 	}
 
-	// Mostrar todos los artistas
 	public function index()
 	{
 		$title = 'Artistas';
@@ -20,7 +19,7 @@ class Artists extends CI_Controller
 			'title' => $title,
 		]);
 		$this->load->view('pages/artists/index', [
-			'artists' => $this->artists_model->get_all_artists()
+			'artists' => $this->ArtistModel->get_all_artists()
 		]);
 		$this->load->view('partials/footer');
 	}
@@ -48,10 +47,9 @@ class Artists extends CI_Controller
 			'name' => $this->input->post('name'),
 			'genre' => $this->input->post('genre'),
 			'country' => $this->input->post('country')
-
 		];
 
-		$this->artists_model->add_new_artist($artist_data);
+		$this->ArtistModel->add_new_artist($artist_data);
 		redirect('artists');
 	}
 
@@ -59,7 +57,7 @@ class Artists extends CI_Controller
 	{
 		$title = "Artista #$artist_id";
 
-		$artist = $this->artists_model->get_artist_by_id($artist_id);
+		$artist = $this->ArtistModel->get_artist_by_id($artist_id);
 
 		if ($artist === null) {
 			show_404();
@@ -81,7 +79,7 @@ class Artists extends CI_Controller
 
 		$title = "Editar artista #$artist_id";
 
-		$artist = $this->artists_model->get_artist_by_id($artist_id);
+		$artist = $this->ArtistModel->get_artist_by_id($artist_id);
 
 		if ($artist === null) {
 			show_404();
@@ -107,17 +105,27 @@ class Artists extends CI_Controller
 			'country' => $this->input->post('country')
 		];
 
-		$this->artists_model->update_artist($artist_id, $artist_data);
+		$this->ArtistModel->update_artist($artist_id, $artist_data);
 		redirect('artists');
 	}
 	public function delete($artist_id)
 	{
 		$this->check_admin();
 
-		$this->db->where('artist_id', $artist_id);
-		$this->db->delete('show');
+		$shows = $this->db->select('show_id')->from('show')->where('artist_id', $artist_id)->get()->result_array();
 
-		$this->artists_model->delete_artist($artist_id);
+		if (!empty($shows)) {
+			$show_ids = array_column($shows, 'show_id');
+
+			$this->db->where_in('show_id', $show_ids);
+			$this->db->delete('purchase');
+
+			$this->db->where('artist_id', $artist_id);
+			$this->db->delete('show');
+		}
+
+		$this->db->where('artist_id', $artist_id);
+		$this->db->delete('artist');
 
 		$this->session->set_flashdata('message', 'Artista y shows eliminados correctamente.');
 		redirect('artists');
@@ -126,9 +134,9 @@ class Artists extends CI_Controller
 	private function check_admin()
 	{
 		$user = $this->session->userdata('user');
-		if ($user['role_id'] != 1) {  // Role_id 1 es "admin", 2 es "customer"
+		if ($user['role_id'] != 1) {  
 			$this->session->set_flashdata('error', 'Acceso denegado. Solo los administradores pueden realizar esta acción.');
-			redirect('artists');  // Redirige si el usuario no es admin
+			redirect('artists');
 		}
 	}
 }

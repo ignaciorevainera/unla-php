@@ -35,3 +35,8 @@
 			<?php endif; ?>
 		</div>
 	</div>
+	<script>
+		function confirmDelete() {
+			return confirm('¿Estás seguro de que deseas eliminar este show? Esta acción no se puede deshacer.');
+		}
+	</script>

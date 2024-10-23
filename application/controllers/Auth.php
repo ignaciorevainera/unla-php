@@ -6,15 +6,14 @@ class Auth extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('users_model');
+		$this->load->model('UserModel');
 		$this->load->helper('title_helper');
 	}
 
 	public function signup_form()
 	{
-		// Redirigir si ya está logueado
 		if ($this->session->userdata('user')) {
-			redirect('shows');  // Redirige a la página de shows si ya está logueado
+			redirect('shows');
 			die;
 		}
 
@@ -45,18 +44,17 @@ class Auth extends CI_Controller
 		$user_data = [
 			'email' => $this->input->post('email'),
 			'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-			'role_id' => 2 // 'customer'
+			'role_id' => 2 
 		];
-		$this->users_model->create_user($user_data);
+		$this->UserModel->create_user($user_data);
 		$this->session->set_flashdata('success', 'Usuario creado correctamente');
 		redirect('auth/login_form');
 	}
 
 	public function login_form()
 	{
-		// Redirigir si ya está logueado
 		if ($this->session->userdata('user')) {
-			redirect('shows');  // Redirige a la página de shows si ya está logueado
+			redirect('shows');
 			die;
 		}
 
@@ -82,7 +80,7 @@ class Auth extends CI_Controller
 			redirect('auth/login_form');
 		}
 
-		$user = $this->users_model->get_user_by_email($this->input->post('email'));
+		$user = $this->UserModel->get_user_by_email($this->input->post('email'));
 
 		if ($user !== NULL && password_verify($this->input->post('password'), $user['password'])) {
 			$this->session->set_userdata('user', $user);

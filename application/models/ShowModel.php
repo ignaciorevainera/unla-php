@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class shows_model extends CI_Model
+class ShowModel extends CI_Model
 {
 	public function __construct()
 	{
@@ -9,12 +9,12 @@ class shows_model extends CI_Model
 		$this->load->database();
 	}
 
-	// Modificación para obtener los shows junto con el nombre del artista
 	public function get_all_shows()
 	{
 		$this->db->select('Show.*, Artist.name as artist_name');
 		$this->db->from('Show');
-		$this->db->join('Artist', 'Show.artist_id = Artist.artist_id'); // Unión entre Show y Artist
+		$this->db->join('Artist', 'Show.artist_id = Artist.artist_id');
+		$this->db->order_by('Show.date', 'ASC');
 		$query = $this->db->get();
 		return $query->result();
 	}
