@@ -32,6 +32,12 @@
 			<li>
 				<a href="<?php echo base_url('artists'); ?>" class="nav-link text-white p-0">Artistas</a>
 			</li>
+			<li>
+				<a href="<?php echo base_url('purchases'); ?>" class="nav-link text-white p-0">Compras</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url('customers'); ?>" class="nav-link text-white p-0">Clientes</a>
+			</li>
 			<?php if ($this->session->userdata('user') && $this->session->userdata('role') == 1): ?>
 				<li class="nav-item d-flex gap-1">
 					<a href="<?php echo base_url('shows/create'); ?>" class="btn btn-success btn-icon d-flex align-items-center">

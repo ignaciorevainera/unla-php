@@ -7,25 +7,25 @@
 	<section class="container mb-5">
 		<div class="row g-4 text-center">
 			<div class="col-md-3">
-				<div class="p-3 bg-dark rounded-3 h-100">
+				<div class="p-3 bg-dark rounded-2 h-100">
 					<i class="bi bi-cart-check fs-1 text-primary mb-3"></i>
 					<h5>Proceso de Compra</h5>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="p-3 bg-dark rounded-3 h-100">
+				<div class="p-3 bg-dark rounded-2 h-100">
 					<i class="bi bi-credit-card fs-1 text-primary mb-3"></i>
 					<h5>Pagos</h5>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="p-3 bg-dark rounded-3 h-100">
+				<div class="p-3 bg-dark rounded-2 h-100">
 					<i class="bi bi-ticket-perforated fs-1 text-primary mb-3"></i>
 					<h5>Tickets</h5>
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="p-3 bg-dark rounded-3 h-100">
+				<div class="p-3 bg-dark rounded-2 h-100">
 					<i class="bi bi-arrow-counterclockwise fs-1 text-primary mb-3"></i>
 					<h5>Reembolsos</h5>
 				</div>

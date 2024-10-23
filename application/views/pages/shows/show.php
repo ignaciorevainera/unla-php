@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container">
 	<h1 class="text-center fw-bold"><?php echo $show->artist_name; ?></h1>
 	<h2 class="text-center mb-4"><?php echo $show->name; ?></h2>
@@ -18,15 +19,20 @@
 
 					<ul class="list-unstyled mb-4">
 						<li><?php echo date('d/m/Y', strtotime($show->date)) . " • " . date('H:i', strtotime($show->time)); ?></li>
-						<li class="card-price text-end">Desde <strong class="text-success"><?php echo "$" . $show->price; ?></strong></li>
+						<li class="card-price fs-3 fw-normal text-end">Desde <strong class="text-success"><?php echo "$" . $show->price; ?></strong></li>
 						<li class="small text-end"><?php echo $show->total_quantity; ?> en total</li>
 						<li class="small text-end"><?php echo $show->available_quantity; ?> disponibles</li>
 					</ul>
 
 					<div class="d-flex justify-content-between">
 						<div class="d-flex align-items-center gap-2">
-							<?php echo edit_button($show->show_id); ?>
-
+							<?php if ($show->status == 'available' && $this->session->userdata('user') && $this->session->userdata('role') != 1): ?>
+								<form action="<?php echo base_url("shows/buy/$show->show_id"); ?>" method="post">
+									<button type="submit" class="btn btn-success">Comprar</button>
+								</form>
+							<?php else: ?>
+								<button class="btn btn-secondary" disabled>Comprar</button>
+							<?php endif; ?>
 							<?php if ($show->status == 'available'): ?>
 								<span class="badge bg-success">Activo</span>
 							<?php elseif ($show->status == 'sold_out'): ?>

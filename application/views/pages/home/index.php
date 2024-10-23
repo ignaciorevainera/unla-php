@@ -8,7 +8,7 @@
 		</div>
 	</div>
 
-	<img src="assets/images/home1.webp" class="w-75 rounded-3 shadow-lg mb-4 ratio ratio-21x9" alt="Hero" loading="lazy">
+	<img src="assets/images/home1.webp" class="w-75 rounded-2 shadow-lg mb-4 ratio ratio-21x9" alt="Hero" loading="lazy">
 
 </section>
 
@@ -21,21 +21,21 @@
 		</div>
 	</div>
 	<div class="d-flex gap-2 justify-content-center">
-		<div class="col-md-4 text-center p-3 bg-dark rounded-3">
+		<div class="col-md-4 text-center p-3 bg-dark rounded-2">
 			<div class="mb-3">
 				<i class="bi bi-shield-check display-4 text-primary"></i>
 			</div>
 			<h3 class="fw-bold">Compra Segura</h3>
 			<p>Garantizamos la seguridad de todas tus transacciones con los más altos estándares de protección.</p>
 		</div>
-		<div class="col-md-4 text-center p-3 bg-dark rounded-3">
+		<div class="col-md-4 text-center p-3 bg-dark rounded-2">
 			<div class="mb-3">
 				<i class="bi bi-ticket-perforated display-4 text-primary"></i>
 			</div>
 			<h3 class="fw-bold">Tickets Verificados</h3>
 			<p>Todos nuestros tickets son 100% auténticos y verificados antes de cada venta.</p>
 		</div>
-		<div class="col-md-4 text-center p-3 bg-dark rounded-3">
+		<div class="col-md-4 text-center p-3 bg-dark rounded-2">
 			<div class="mb-3">
 				<i class="bi bi-headset display-4 text-primary"></i>
 			</div>
@@ -54,7 +54,7 @@
 			<p class="mb-4">A lo largo de los años, hemos crecido hasta convertirnos en una de las plataformas más confiables en la venta de tickets, manteniendo siempre nuestro compromiso con la satisfacción del cliente y la seguridad en cada transacción.</p>
 		</div>
 		<div class="col-lg-6">
-			<img src="assets/images/home2.webp" class="img-fluid rounded shadow" alt="Nuestra historia">
+			<img src="assets/images/home2.webp" class="img-fluid rounded-2 shadow" alt="Nuestra historia">
 		</div>
 	</div>
 </section>

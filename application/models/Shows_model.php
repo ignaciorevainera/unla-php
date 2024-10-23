@@ -29,6 +29,11 @@ class shows_model extends CI_Model
 		return $query->row();
 	}
 
+	public function get_show($show_id)
+	{
+		return $this->db->get_where('show', ['show_id' => $show_id])->row();
+	}
+
 	public function add_new_show($show_data)
 	{
 		$this->db->insert('Show', $show_data);

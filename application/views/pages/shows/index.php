@@ -1,10 +1,11 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section>
 	<div class="container">
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 			<?php if (!empty($shows)): ?>
 				<?php foreach ($shows as $show): ?>
 					<div class="col">
-						<div class="card h-100 bg-dark text-light border-secondary rounded">
+						<div class="card h-100 bg-dark text-light border-secondary rounded-2">
 							<!-- <img src="<?php echo base_url('uploads/shows/' . $show->image); ?>" class="card-img-top" alt="<?php echo $show->name; ?>" style="height: 200px; object-fit: cover;"> -->
 
 							<div class="card-body d-flex flex-column">
@@ -21,8 +22,23 @@
 							</div>
 
 							<div class="card-footer p-4 d-flex justify-content-between">
-								<?php echo view_button($show->show_id); ?>
-
+								<div class="d-flex gap-2 align-items-center">
+									<?php echo view_button($show->show_id); ?>
+									<?php if ($show->status == 'available' && $this->session->userdata('user') && $this->session->userdata('role') != 1): ?>
+										<form action="<?php echo base_url("shows/buy/$show->show_id"); ?>" method="post">
+											<button type="submit" class="btn btn-success">Comprar</button>
+										</form>
+									<?php else: ?>
+										<button type="button" class="btn btn-secondary" disabled>Comprar</button>
+									<?php endif; ?>
+									<?php if ($show->status == 'available'): ?>
+										<span class="badge bg-success">Activo</span>
+									<?php elseif ($show->status == 'sold_out'): ?>
+										<span class="badge bg-warning">Agotado</span>
+									<?php else: ?>
+										<span class="badge bg-danger">No Disponible</span>
+									<?php endif; ?>
+								</div>
 								<?php if ($this->session->userdata('role') == 1): ?>
 									<div class="d-flex gap-2">
 										<?php echo edit_button($show->show_id); ?>

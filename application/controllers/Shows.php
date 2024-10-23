@@ -121,7 +121,19 @@ class Shows extends CI_Controller
 			'artist_id' => $this->input->post('artist_id'),
 		];
 
+		// Actualiza el show en la base de datos
 		$this->shows_model->update_show($show_id, $show_data);
+
+		// Verificación de fecha para actualizar el estado
+		$available_quantity = $this->input->post('available_quantity');
+		$date = $this->input->post('date');
+		$current_date = date('Y-m-d');
+		if ($date < $current_date) {
+			$this->shows_model->update_show($show_id, ['status' => 'expired']);
+		} elseif ($available_quantity == 0) {
+			// Si las entradas se han agotado, actualizar a 'sold_out'
+			$this->shows_model->update_show($show_id, ['status' => 'sold_out']);
+		}
 		redirect('shows');
 	}
 
@@ -131,6 +143,87 @@ class Shows extends CI_Controller
 
 		$this->shows_model->delete_show($show_id);
 		redirect('shows');
+	}
+
+	public function buy($show_id)
+	{
+		if (!$this->session->userdata('user')) {
+			redirect('login_form');
+		}
+
+		$this->load->view('partials/header', [
+			'title' => 'Comprando entradas',
+		]);
+		$data['show'] = $this->shows_model->get_show($show_id);
+
+		if ($data['show']->status != 'available') {
+			$this->session->set_flashdata('error', 'El show no está disponible.');
+			redirect("shows/show/$show_id");
+		}
+
+		// Cargar la vista con el formulario de compra
+		$this->load->view('pages/shows/buy', $data);
+		$this->load->view('partials/footer');
+	}
+
+	public function confirm_purchase()
+	{
+		if (!$this->session->userdata('user')) {
+			redirect('login_form');
+		}
+
+		$show_id = $this->input->post('show_id');
+		$quantity = $this->input->post('quantity');
+
+		$this->load->view('partials/header', [
+			'title' => 'Resultado de la compra',
+		]);
+		// Verificar si hay suficientes entradas disponibles
+		$show = $this->shows_model->get_show($show_id);
+		if ($show->status != 'available') {
+			$data['message'] = 'Lo sentimos, el show no está disponible.';
+			$data['success'] = false;
+			$this->load->view('pages/shows/purchase_result', $data);
+			return;
+		}
+
+		if ($quantity > $show->available_quantity) {
+			$data['message'] = 'No hay suficientes entradas disponibles.';
+			$data['success'] = false;
+			$this->load->view('pages/shows/purchase_result', $data);
+			return;
+		}
+
+		$this->load->model('purchase_model');
+		// Registrar la compra en la base de datos
+		$this->purchase_model->create_purchase([
+			'user_id' => $this->session->userdata('user')['user_id'],
+			'show_id' => $show_id,
+			'quantity' => $quantity,
+			'total_price' => $quantity * $show->price,
+		]);
+
+		// Actualizar la cantidad de entradas disponibles
+		$new_available_quantity = $show->available_quantity - $quantity;
+		$status = $new_available_quantity == 0 ? 'sold_out' : $show->status;
+
+		$this->shows_model->update_show($show_id, [
+			'available_quantity' => $new_available_quantity,
+			'status' => $status
+		]);
+
+		$current_date = date('Y-m-d');
+		if ($show->date < $current_date) {
+			$this->shows_model->update_show($show_id, ['status' => 'expired']);
+		}
+
+		// Redirigir con mensaje de éxito
+		$data['message'] = '¡Compra realizada con éxito! Has comprado ' . $quantity . ' entrada(s).';
+		$data['success'] = true;
+		$data['show'] = $show;
+
+		$this->load->view('pages/shows/purchase_result', $data);
+		$this->load->view('partials/footer');
 	}
 
 	private function check_admin()
