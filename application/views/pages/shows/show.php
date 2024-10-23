@@ -6,7 +6,11 @@
 	<div class="card bg-dark text-light border-secondary mb-4">
 		<div class="row g-0">
 			<div class="col-md-4">
-				<!-- <img src="<?php echo base_url('uploads/shows/' . $show->image); ?>" class="img-fluid rounded-start" alt="<?php echo $show->name; ?>" style="height: 100%; object-fit: cover;"> -->
+				<?php if (!empty($show->image)): ?>
+					<img src="<?= base_url($show->image); ?>" alt="<?= $show->name; ?>" class="img-fluid">
+				<?php else: ?>
+					<img src="<?= base_url('assets/images/shows/default.webp'); ?>" alt="Imagen no disponible" class="img-fluid">
+				<?php endif; ?>
 			</div>
 
 			<div class="col-md-8">

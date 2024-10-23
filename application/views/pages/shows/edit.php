@@ -2,7 +2,11 @@
 <section>
 	<?php title($title); ?>
 	<div class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
-		<form action="<?php echo base_url("show/update/$show->show_id") ?>" method="post" class="w-75">
+		<form action="<?php echo base_url("show/update/$show->show_id") ?>" method="post" class="w-75" enctype="multipart/form-data">
+			<div class="mb-4">
+				<label for="image" class="form-label">Imagen del espectáculo:</label>
+				<input type="file" name="image" id="image" value="<?php echo $show->image ?>" value="<?php echo $show->image ?>" class="form-control form-control-lg bg-white text-dark border border-2 rounded-2">
+			</div>
 			<div class="row mb-4">
 				<div class="col-md-6">
 					<label for="name" class="form-label">Nombre del Show:</label>

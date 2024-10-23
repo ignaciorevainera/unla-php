@@ -28,17 +28,33 @@ class Show extends CI_Controller
 	public function store()
 	{
 		$this->check_admin();
-		$show_data = $this->input->post([
-			'name',
-			'description',
-			'date',
-			'time',
-			'price',
-			'total_quantity',
-			'available_quantity',
-			'status',
-			'artist_id'
-		]);
+
+		// Configuración de carga de imagen (incluye WebP)
+		$config['upload_path'] = './assets/images/shows/' . $this->input->post('artist_name');
+		$config['allowed_types'] = 'jpg|jpeg|png|gif|webp'; // Incluimos webp
+		$config['max_size'] = 2048; // 2MB
+		$this->load->library('upload', $config);
+
+		// Verificar si se subió una imagen
+		if ($this->upload->do_upload('image')) {
+			$upload_data = $this->upload->data();
+			$image_path = 'assets/images/shows/' . $this->input->post('artist_name') . '/' . $upload_data['file_name'];
+		} else {
+			$image_path = null;  // O imagen por defecto si prefieres
+		}
+
+		$show_data = [
+			'name' => $this->input->post('name'),
+			'description' => $this->input->post('description'),
+			'date' => $this->input->post('date'),
+			'time' => $this->input->post('time'),
+			'price' => $this->input->post('price'),
+			'total_quantity' => $this->input->post('total_quantity'),
+			'available_quantity' => $this->input->post('available_quantity'),
+			'status' => $this->input->post('status'),
+			'artist_id' => $this->input->post('artist_id'),
+			'image' => $image_path  // Agregamos la imagen procesada
+		];
 
 		$this->ShowModel->add_new_show($show_data);
 		redirect('shows');
@@ -67,17 +83,34 @@ class Show extends CI_Controller
 	public function update($show_id)
 	{
 		$this->check_admin();
-		$show_data = $this->input->post([
-			'name',
-			'description',
-			'date',
-			'time',
-			'price',
-			'total_quantity',
-			'available_quantity',
-			'status',
-			'artist_id'
-		]);
+
+		// Configuración de carga de imagen (incluye WebP)
+		$config['upload_path'] = './assets/images/shows/' . $this->input->post('artist_name');
+		$config['allowed_types'] = 'jpg|jpeg|png|gif|webp'; // Incluimos webp
+		$config['max_size'] = 2048; // 2MB
+		$this->load->library('upload', $config);
+
+		// Verificar si se subió una imagen
+		if ($this->upload->do_upload('image')) {
+			$upload_data = $this->upload->data();
+			$image_path = 'assets/images/shows/' . $this->input->post('artist_name') . '/' . $upload_data['file_name'];
+		} else {
+			$show = $this->ShowModel->get_show_by_id($show_id);
+			$image_path = $show->image;
+		}
+
+		$show_data = [
+			'name' => $this->input->post('name'),
+			'description' => $this->input->post('description'),
+			'date' => $this->input->post('date'),
+			'time' => $this->input->post('time'),
+			'price' => $this->input->post('price'),
+			'total_quantity' => $this->input->post('total_quantity'),
+			'available_quantity' => $this->input->post('available_quantity'),
+			'status' => $this->input->post('status'),
+			'artist_id' => $this->input->post('artist_id'),
+			'image' => $image_path  // Agregamos la imagen procesada
+		];
 
 		$this->ShowModel->update_show($show_id, $show_data);
 

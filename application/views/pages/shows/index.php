@@ -6,7 +6,11 @@
 				<?php foreach ($shows as $show): ?>
 					<div class="col">
 						<div class="card h-100 bg-dark text-light border-secondary rounded-2">
-							<!-- <img src="<?php echo base_url('uploads/shows/' . $show->image); ?>" class="card-img-top" alt="<?php echo $show->name; ?>" style="height: 200px; object-fit: cover;"> -->
+							<?php if (!empty($show->image)): ?>
+								<img src="<?= base_url($show->image); ?>" alt="<?= $show->name; ?>" class="img-fluid">
+							<?php else: ?>
+								<img src="<?= base_url('assets/images/shows/default.webp'); ?>" alt="Imagen no disponible" class="img-fluid">
+							<?php endif; ?>
 
 							<div class="card-body d-flex flex-column justify-content-between">
 								<div class="flex-grow-1 mb-3">
