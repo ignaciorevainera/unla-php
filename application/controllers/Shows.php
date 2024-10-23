@@ -7,7 +7,9 @@ class Shows extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('shows_model');
+		$this->load->model('artists_model');
 		$this->load->helper('url');
+		$this->load->helper('title_helper');
 	}
 
 	public function index()
@@ -16,7 +18,6 @@ class Shows extends CI_Controller
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/shows.css'
 		]);
 		$this->load->view('pages/shows/index', [
 			'title' => $title,
@@ -27,17 +28,15 @@ class Shows extends CI_Controller
 	public function create()
 	{
 		$this->check_admin();
-		$this->load->model('artists_model');
-		$artists = $this->artists_model->get_all_artists();
+
 		$title = 'Agregar espectáculo';
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/add-show.css'
 		]);
 		$this->load->view('pages/shows/create', [
 			'title' => $title,
-			'artists' => $artists
+			'artists' => $this->artists_model->get_all_artists()
 		]);
 		$this->load->view('partials/footer');
 	}
@@ -64,15 +63,16 @@ class Shows extends CI_Controller
 
 	public function show($show_id)
 	{
-		$title = 'Espectáculo #' . $show_id;
 		$show = $this->shows_model->get_show_by_id($show_id);
+
+		$title = "$show->artist_name";
+
 		if ($show === null) {
 			show_404();
 		}
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/show-shows.css'
 		]);
 		$this->load->view('pages/shows/show', [
 			'title' => $title,
@@ -84,10 +84,10 @@ class Shows extends CI_Controller
 	public function edit($show_id)
 	{
 		$this->check_admin();
-		$title = 'Editar espectáculo #' . $show_id;
+
+		$title = "Editar espectáculo #$show_id";
+
 		$show = $this->shows_model->get_show_by_id($show_id);
-		$this->load->model('artists_model');
-		$artists = $this->artists_model->get_all_artists();
 
 		if ($show === null) {
 			show_404();
@@ -95,12 +95,11 @@ class Shows extends CI_Controller
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/edit-show.css'
 		]);
 		$this->load->view('pages/shows/edit', [
 			'title' => $title,
 			'show' => $show,
-			'artists' => $artists
+			'artists' => $this->artists_model->get_all_artists()
 		]);
 		$this->load->view('partials/footer');
 	}
@@ -151,18 +150,24 @@ class Shows extends CI_Controller
 			redirect('login_form');
 		}
 
-		$this->load->view('partials/header', [
-			'title' => 'Comprando entradas',
-		]);
-		$data['show'] = $this->shows_model->get_show($show_id);
+		$title = 'Comprar entradas';
 
-		if ($data['show']->status != 'available') {
+		$this->load->view('partials/header', [
+			'title' => $title,
+		]);
+
+		$show = $this->shows_model->get_show($show_id);
+
+		if ($show->status != 'available') {
 			$this->session->set_flashdata('error', 'El show no está disponible.');
 			redirect("shows/show/$show_id");
 		}
 
 		// Cargar la vista con el formulario de compra
-		$this->load->view('pages/shows/buy', $data);
+		$this->load->view('pages/shows/buy', [
+			'title' => $title,
+			'show' => $show
+		]);
 		$this->load->view('partials/footer');
 	}
 
@@ -172,11 +177,13 @@ class Shows extends CI_Controller
 			redirect('login_form');
 		}
 
+		$title = 'Resultado de la compra';
+
 		$show_id = $this->input->post('show_id');
 		$quantity = $this->input->post('quantity');
 
 		$this->load->view('partials/header', [
-			'title' => 'Resultado de la compra',
+			'title' => $title,
 		]);
 		// Verificar si hay suficientes entradas disponibles
 		$show = $this->shows_model->get_show($show_id);

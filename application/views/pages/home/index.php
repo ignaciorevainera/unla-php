@@ -1,5 +1,6 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container mb-5 text-center">
-	<h1 class="display-1 fw-bold">TicketMaster</h1>
+	<?php title($title); ?>
 	<div class="col-lg-6 mx-auto">
 		<p class="lead mb-4">Tu entrada al mundo del entretenimiento</p>
 		<div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">

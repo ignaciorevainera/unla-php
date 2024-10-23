@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section>
-	<h1 class="text-center mb-5 text-light"><?php echo $title; ?></h1>
+	<?php title($title); ?>
 	<div class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
 		<form action="<?php echo base_url('artist/create'); ?>" method="post" class="w-75">
 			<div class="mb-3">

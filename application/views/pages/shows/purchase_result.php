@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container bg-dark rounded-2 border border-secondary p-4">
 	<h1 class="text-success fw-bold"><?php echo $success ? 'Compra exitosa' : 'Error en la compra'; ?></h1>
 

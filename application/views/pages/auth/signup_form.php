@@ -1,7 +1,8 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php $errors = $this->session->flashdata('errors'); ?>
 <?php $success = $this->session->flashdata('success'); ?>
 
-<div class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
+<section class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
 	<form action="<?php echo base_url('auth/signup'); ?>" method="post" class="w-75">
 		<div class="mb-3">
 			<label for="email" class="form-label fw-bold">Correo electrónico:</label>
@@ -35,5 +36,4 @@
 			<?php echo $success; ?>
 		</div>
 	<?php endif; ?>
-
-</div>
+</section>

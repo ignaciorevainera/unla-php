@@ -8,6 +8,7 @@ class Artists extends CI_Controller
 		parent::__construct();
 		$this->load->model('artists_model');
 		$this->load->helper('url');
+		$this->load->helper('title_helper');
 	}
 
 	// Mostrar todos los artistas
@@ -17,10 +18,8 @@ class Artists extends CI_Controller
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/artists.css'
 		]);
 		$this->load->view('pages/artists/index', [
-			'title' => $title,
 			'artists' => $this->artists_model->get_all_artists()
 		]);
 		$this->load->view('partials/footer');
@@ -34,7 +33,6 @@ class Artists extends CI_Controller
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/add-artist.css'
 		]);
 		$this->load->view('pages/artists/create', [
 			'title' => $title
@@ -59,15 +57,16 @@ class Artists extends CI_Controller
 
 	public function show($artist_id)
 	{
-		$title = 'Artista #' . $artist_id;
+		$title = "Artista #$artist_id";
+
 		$artist = $this->artists_model->get_artist_by_id($artist_id);
+
 		if ($artist === null) {
 			show_404();
 		}
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/show-artist.css'
 		]);
 		$this->load->view('pages/artists/show', [
 			'title' => $title,
@@ -80,7 +79,8 @@ class Artists extends CI_Controller
 	{
 		$this->check_admin();
 
-		$title = 'Editar artista #' . $artist_id;
+		$title = "Editar artista #$artist_id";
+
 		$artist = $this->artists_model->get_artist_by_id($artist_id);
 
 		if ($artist === null) {
@@ -89,7 +89,6 @@ class Artists extends CI_Controller
 
 		$this->load->view('partials/header', [
 			'title' => $title,
-			'css_file' => '/edit-artist.css'
 		]);
 		$this->load->view('pages/artists/edit', [
 			'title' => $title,

@@ -8,24 +8,20 @@ class Customer extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('CustomerModel');
+		$this->load->helper('title_helper');
 	}
 
 	public function index()
 	{
-		// Cargar el modelo de usuario
-		$this->load->model('CustomerModel');
+		$title = 'Clientes Registrados';
 
-		// Obtener la lista de clientes
-		$data['customers'] = $this->CustomerModel->get_customers_with_purchase_count();
-
-		// Título de la página
-		$data['title'] = 'Clientes Registrados';
-
-		// Cargar la vista
 		$this->load->view('partials/header', [
-			'title' => $data['title'],
+			'title' => $title,
 		]);
-		$this->load->view('pages/customers/index', $data);
+		$this->load->view('pages/customers/index', [
+			'title' => $title,
+			'customers' => $this->CustomerModel->get_customers_with_purchase_count()
+		]);
 		$this->load->view('partials/footer');
 	}
 }

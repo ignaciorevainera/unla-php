@@ -7,6 +7,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('users_model');
+		$this->load->helper('title_helper');
 	}
 
 	public function signup_form()
@@ -17,9 +18,10 @@ class Auth extends CI_Controller
 			die;
 		}
 
+		$title = 'Registro';
+
 		$this->load->view('partials/header', [
-			'title' => 'Register',
-			'css_file' => '/auth.css'
+			'title' => $title,
 		]);
 		$this->load->view('pages/auth/signup_form');
 		$this->load->view('partials/footer');
@@ -58,9 +60,10 @@ class Auth extends CI_Controller
 			die;
 		}
 
+		$title = 'Iniciar Sesión';
+
 		$this->load->view('partials/header', [
-			'title' => 'Login',
-			'css_file' => '/auth.css'
+			'title' => $title,
 		]);
 		$this->load->view('pages/auth/login_form');
 		$this->load->view('partials/footer');

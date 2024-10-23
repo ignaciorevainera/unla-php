@@ -1,5 +1,6 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section>
-	<h1 class="text-center mb-5 text-light">Compra entradas para <strong><?php echo $show->name; ?></strong></h1>
+	<?php title($title); ?>
 	<section class="container bg-dark rounded-2 border border-secondary p-4">
 		<div class="d-flex justify-content-between gap-4">
 			<div class="flex-grow-1">

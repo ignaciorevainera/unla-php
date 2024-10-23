@@ -21,9 +21,8 @@
 								</ul>
 							</div>
 
-							<div class="card-footer p-4 d-flex justify-content-between">
+							<div class="card-footer p-4 d-flex justify-content-between flex-wrap row-gap-2 gap-1">
 								<div class="d-flex gap-2 align-items-center">
-									<?php echo view_button($show->show_id); ?>
 									<?php if ($show->status == 'available' && $this->session->userdata('user') && $this->session->userdata('role') != 1): ?>
 										<form action="<?php echo base_url("shows/buy/$show->show_id"); ?>" method="post">
 											<button type="submit" class="btn btn-success">Comprar</button>
@@ -39,12 +38,13 @@
 										<span class="badge bg-danger">No Disponible</span>
 									<?php endif; ?>
 								</div>
-								<?php if ($this->session->userdata('role') == 1): ?>
-									<div class="d-flex gap-2">
+								<div class="d-flex gap-2">
+									<?php echo view_button($show->show_id); ?>
+									<?php if ($this->session->userdata('role') == 1): ?>
 										<?php echo edit_button($show->show_id); ?>
 										<?php echo delete_button($show->show_id); ?>
-									</div>
-								<?php endif; ?>
+									<?php endif; ?>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -59,3 +59,8 @@
 		</div>
 	</div>
 </section>
+<script>
+	function confirmDelete() {
+		return confirm('¿Estás seguro de que deseas eliminar este show? Esta acción no se puede deshacer.');
+	}
+</script>

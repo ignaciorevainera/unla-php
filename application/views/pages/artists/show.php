@@ -1,5 +1,6 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section>
-	<h1 class="my-5"><?php echo $title; ?></h1>
+	<?php title($title); ?>
 	<div class="card bg-dark text-light p-4">
 		<h2>Nombre: <?php echo $artist->name; ?></h2>
 		<p>País de Origen: <?php echo $artist->country; ?></p>

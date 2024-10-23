@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container">
-	<h1 class="text-center fw-bold"><?php echo $show->artist_name; ?></h1>
+	<?php title($title); ?>
 	<h2 class="text-center mb-4"><?php echo $show->name; ?></h2>
 
-	<div class="card bg-dark text-light border-light mb-4">
+	<div class="card bg-dark text-light border-secondary mb-4">
 		<div class="row g-0">
 			<div class="col-md-4">
 				<!-- <img src="<?php echo base_url('uploads/shows/' . $show->image); ?>" class="img-fluid rounded-start" alt="<?php echo $show->name; ?>" style="height: 100%; object-fit: cover;"> -->
