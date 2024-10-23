@@ -2,7 +2,7 @@
 <section>
 	<?php title($title); ?>
 	<div class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
-		<form action="<?php echo base_url("artists/update/$artist->artist_id"); ?>" method="post" class="w-75">
+		<form action="<?php echo base_url("artist/update/$artist->artist_id"); ?>" method="post" class="w-75">
 			<div class="mb-3">
 				<label for="name" class="form-label">Nombre:</label>
 				<input type="text" class="form-control form-control-lg bg-white text-dark border border-2 rounded-2" id="name" name="name" value="<?php echo $artist->name; ?>">
@@ -20,6 +20,4 @@
 			</div>
 		</form>
 	</div>
-
-
 </section>

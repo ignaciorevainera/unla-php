@@ -4,7 +4,7 @@
 	<section class="container bg-dark rounded-2 border border-secondary p-4">
 		<div class="d-flex justify-content-between gap-4">
 			<div class="flex-grow-1">
-				<form id="purchaseForm" name="purchaseForm" action="<?php echo base_url('shows/confirm_purchase'); ?>" method="post">
+				<form id="purchaseForm" name="purchaseForm" action="<?php echo base_url('show/confirm_purchase'); ?>" method="post">
 					<input type="hidden" name="show_id" value="<?php echo $show->show_id; ?>">
 
 					<div class="mb-3">

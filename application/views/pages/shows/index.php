@@ -24,7 +24,7 @@
 							<div class="card-footer p-2 d-flex align-items-center justify-content-between gap-2 flex-wrap">
 								<div class="d-flex gap-2 align-items-center">
 									<?php if ($show->status == 'available' && $this->session->userdata('user') && $this->session->userdata('role') != 1): ?>
-										<form action="<?php echo base_url("shows/buy/$show->show_id"); ?>" method="post">
+										<form action="<?php echo base_url("show/buy/$show->show_id"); ?>" method="post">
 											<button type="submit" class="btn btn-success">Comprar</button>
 										</form>
 									<?php else: ?>

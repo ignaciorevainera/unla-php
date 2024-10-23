@@ -27,13 +27,13 @@
 					<div class="d-flex justify-content-between">
 						<div class="d-flex align-items-center gap-2">
 							<?php if ($show->status == 'available' && $this->session->userdata('user') && $this->session->userdata('role') != 1): ?>
-								<form action="<?php echo base_url("shows/buy/$show->show_id"); ?>" method="post">
+								<form action="<?php echo base_url("show/buy/$show->show_id"); ?>" method="post">
 									<button type="submit" class="btn btn-success">Comprar</button>
 								</form>
 							<?php else: ?>
 								<button class="btn btn-secondary" disabled>Comprar</button>
 							<?php endif; ?>
-							<?php echo show_status_badge($show->status); ?>
+							<?php echo show_status_badge($show->status, $show->date); ?>
 						</div>
 						<?php if ($this->session->userdata('role') == 1): ?>
 							<div class="d-flex gap-2">

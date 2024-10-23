@@ -2,7 +2,7 @@
 <section>
 	<?php title($title); ?>
 	<div class="flex-grow-1 d-flex flex-column container-sm align-items-center justify-content-center">
-		<form action="<?php echo base_url('shows/store') ?>" method="post" class="w-75">
+		<form action="<?php echo base_url('show/store') ?>" method="post" class="w-75">
 			<div class="row mb-4">
 				<div class="col-md-6">
 					<label for="name" class="form-label">Nombre del espectáculo:</label>
