@@ -25,14 +25,14 @@
 
 	<?php if (isset($errors)): ?>
 		<?php foreach ($errors as $error): ?>
-			<div class="alert alert-danger mt-3 w-75" role="alert">
+			<div class="alert alert-danger mt-4 w-75" role="alert">
 				<?php echo $error; ?>
 			</div>
 		<?php endforeach; ?>
 	<?php endif; ?>
 
 	<?php if (isset($success)): ?>
-		<div class="alert alert-success mt-3 w-75" role="alert">
+		<div class="alert alert-success mt-4 w-75" role="alert">
 			<?php echo $success; ?>
 		</div>
 	<?php endif; ?>

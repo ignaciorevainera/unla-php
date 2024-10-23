@@ -33,13 +33,7 @@
 							<?php else: ?>
 								<button class="btn btn-secondary" disabled>Comprar</button>
 							<?php endif; ?>
-							<?php if ($show->status == 'available'): ?>
-								<span class="badge bg-success">Activo</span>
-							<?php elseif ($show->status == 'sold_out'): ?>
-								<span class="badge bg-warning">Agotado</span>
-							<?php else: ?>
-								<span class="badge bg-danger">No Disponible</span>
-							<?php endif; ?>
+							<?php echo show_status_badge($show->status); ?>
 						</div>
 						<?php if ($this->session->userdata('role') == 1): ?>
 							<div class="d-flex gap-2">

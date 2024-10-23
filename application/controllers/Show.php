@@ -7,7 +7,7 @@ class Show extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model(['ShowModel', 'ArtistModel']);
-		$this->load->helper(['url', 'title_helper']);
+		$this->load->helper(['url', 'title_helper', 'badge_helper']);
 	}
 
 	public function index()
