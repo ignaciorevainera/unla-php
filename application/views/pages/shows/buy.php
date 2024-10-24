@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section>
-	<?php title($title); ?>
+	<?php heading1($title); ?>
 	<section class="container bg-dark rounded-2 border border-secondary p-4">
 		<div class="d-flex justify-content-between gap-4">
 			<div class="flex-grow-1">

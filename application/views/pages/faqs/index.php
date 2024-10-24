@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container mb-5 text-center">
-	<?php title($title); ?>
+	<?php heading1($title); ?>
 	<p class="lead mb-4">Encuentra respuestas a todas tus dudas sobre nuestro servicio</p>
 </section>
 
@@ -36,16 +36,16 @@
 <section class="container">
 	<div class="row justify-content-center">
 		<div class="col-lg-10">
-			<div class="accordion accordion-flush" id="faqAccordion">
+			<div class="accordion" id="faqAccordion">
 				<!-- Proceso de Compra -->
-				<div class="accordion-item bg-dark text-white border-secondary">
+				<div class="accordion-item bg-dark border-0 text-light">
 					<h2 class="accordion-header">
 						<button class="accordion-button bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
 							¿Cómo compro mis entradas?
 						</button>
 					</h2>
 					<div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-						<div class="accordion-body bg-dark">
+						<div class="accordion-body">
 							<p>El proceso de compra es muy sencillo:</p>
 							<ol class="text-light">
 								<li>Selecciona el evento al que deseas asistir</li>
@@ -58,15 +58,14 @@
 					</div>
 				</div>
 
-				<!-- Pagos -->
-				<div class="accordion-item bg-dark text-white border-secondary">
+				<div class="accordion-item bg-dark border-0 text-light">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
 							¿Qué métodos de pago aceptan?
 						</button>
 					</h2>
 					<div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-						<div class="accordion-body bg-dark">
+						<div class="accordion-body">
 							<p>Aceptamos múltiples formas de pago para tu comodidad:</p>
 							<ul class="text-light">
 								<li>Tarjetas de crédito y débito (Visa, MasterCard, American Express)</li>
@@ -78,15 +77,14 @@
 					</div>
 				</div>
 
-				<!-- Tickets -->
-				<div class="accordion-item bg-dark text-white border-secondary">
+				<div class="accordion-item bg-dark border-0 text-light">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
 							¿Cómo recibo mis tickets?
 						</button>
 					</h2>
 					<div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-						<div class="accordion-body bg-dark">
+						<div class="accordion-body">
 							<p>Una vez confirmado tu pago, recibirás tus tickets digitales de las siguientes maneras:</p>
 							<ul class="text-light">
 								<li>Por correo electrónico en formato PDF</li>
@@ -99,14 +97,14 @@
 				</div>
 
 				<!-- Reembolsos -->
-				<div class="accordion-item bg-dark text-white border-secondary">
+				<div class="accordion-item bg-dark border-0 text-light">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
 							¿Cuál es la política de reembolso?
 						</button>
 					</h2>
 					<div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-						<div class="accordion-body bg-dark">
+						<div class="accordion-body">
 							<p>Nuestra política de reembolso contempla los siguientes casos:</p>
 							<ul class="text-light">
 								<li>Cancelación del evento: reembolso automático del 100%</li>

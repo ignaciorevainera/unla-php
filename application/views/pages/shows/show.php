@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container">
-	<?php title($title); ?>
+	<?php heading1($title); ?>
 	<h2 class="text-center mb-4"><?php echo $show->name; ?></h2>
 
 	<div class="card bg-dark text-light border-secondary mb-4">

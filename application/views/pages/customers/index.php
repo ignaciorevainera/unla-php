@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section>
-	<?php title($title); ?>
+	<?php heading1($title); ?>
 	<div class="table-responsive px-5">
 		<table class="table table-bordered table-dark table-striped">
 			<thead>
