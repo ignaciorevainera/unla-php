@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <section class="container mb-5 text-center">
 	<?php heading1($title); ?>
-	<p class="lead mb-4">Encuentra respuestas a todas tus dudas sobre nuestro servicio</p>
+	<?php subtitle('Encuentra respuestas a todas tus dudas sobre nuestro servicio'); ?>
 </section>
 
 <section class="container mb-5">

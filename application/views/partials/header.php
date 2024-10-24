@@ -4,8 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/svg+xml" href=<?php echo base_url('/assets/favicon/favicon.svg'); ?>>
-	<link rel="icon" type="image/png" href=<?php echo base_url('/assets/favicon/favicon.png'); ?>>
+
+	<link rel="icon" type="image/png" href=<?php echo base_url("assets/favicon/favicon-48x48.png") ?> sizes="48x48" />
+	<link rel="icon" type="image/svg+xml" href=<?php echo base_url("assets/favicon/favicon.svg") ?> />
+	<link rel="shortcut icon" href=<?php echo base_url("assets/favicon/favicon.ico") ?> />
+	<link rel="apple-touch-icon" sizes="180x180" href=<?php echo base_url("assets/favicon/apple-touch-icon.png") ?> />
+	<meta name="apple-mobile-web-app-title" content="TicketMaster" />
+	<link rel="manifest" href=<?php echo base_url("assets/favicon/site.webmanifest") ?> />
+
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/global.css'); ?>">
 	<?php if (isset($css_file)): ?>
