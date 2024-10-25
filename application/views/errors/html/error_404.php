@@ -1,87 +1,43 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
 	<meta charset="utf-8">
-	<title>404 Page Not Found</title>
-	<style type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>404 Página no encontrada - TicketMaster</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 
-	::selection { background-color: #f07746; color: #fff; }
-	::-moz-selection { background-color: #f07746; color: #fff; }
-
-	body {
-		background-color: #fff;
-		margin: 40px auto;
-		max-width: 1024px;
-		font: 16px/24px normal "Helvetica Neue", Helvetica, Arial, sans-serif;
-		color: #808080;
-	}
-
-	a {
-		color: #dd4814;
-		background-color: transparent;
-		font-weight: normal;
-		text-decoration: none;
-	}
-
-	a:hover {
-		color: #97310e;
-	}
-
-	h1 {
-		color: #fff;
-		background-color: #dd4814;
-		border-bottom: 1px solid #d0d0d0;
-		font-size: 22px;
-		font-weight: bold;
-		margin: 0 0 14px 0;
-		padding: 5px 15px;
-		line-height: 40px;
-	}
-
-	h2 {
-		color:#404040;
-		margin:0;
-		padding:0 0 10px 0;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 13px;
-		background-color: #f5f5f5;
-		border: 1px solid #e3e3e3;
-		border-radius: 4px;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #d0d0d0;
-		box-shadow: 0 0 8px #d0d0d0;
-		border-radius: 4px;
-	}
-
-	p {
-		margin: 0 0 10px;
-		padding:0;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-		min-height: 96px;
-	}
+	<style>
+		body {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			min-height: 100vh;
+			background: #2c3034;
+			color: #f5f5f5;
+		}
 	</style>
 </head>
+
 <body>
-	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<div id="body">
-			<?php echo $message; ?>
+	<div class="container text-center py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="display-1 text-primary mb-4">
+					<i class="bi bi-exclamation-circle"></i>
+				</div>
+
+				<h1 class="display-4 fw-bold mb-4"><?php echo $heading; ?></h1>
+				<p class="lead mb-4"><?php echo $message; ?></p>
+
+			</div>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
